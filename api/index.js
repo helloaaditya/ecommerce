@@ -1,264 +1,96 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const nodemailer = require('nodemailer');
 
 // Load environment variables
 require('dotenv').config();
 
 const app = express();
 
-// Connect to MongoDB
-const connectDB = async () => {
-  try {
-    if (!process.env.MONGODB_URI) {
-      throw new Error('MONGODB_URI is not defined in environment variables');
-    }
-    
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
-    console.log(`🍃 MongoDB Connected`);
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error.message);
-    throw error;
-  }
-};
-
-// CORS configuration for Vercel
+// Simple CORS for mobile compatibility
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    const allowedOrigins = [
-      'http://localhost:3000',
-      'http://localhost:5173', 
-      'http://localhost:4173',
-      'https://ecommerce-bootcamp-ten.vercel.app',
-      'https://ecommerce-bootcamp.vercel.app',
-      // Allow same origin (for Vercel deployment)
-      origin
-    ];
-    
-    // Check if origin is allowed
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      // For development, allow all origins
-      if (process.env.NODE_ENV === 'development') {
-        callback(null, true);
-      } else {
-        console.log('Blocked origin:', origin);
-        callback(new Error('Not allowed by CORS'));
-      }
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  exposedHeaders: ['Content-Range', 'X-Content-Range'],
-  maxAge: 86400 // 24 hours
+  origin: '*', // Allow all origins for mobile
+  credentials: false,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Import models
-const User = require('../backend/models/User');
-const Product = require('../backend/models/Product');
-const Order = require('../backend/models/Order');
+// Simple Product Schema
+const productSchema = new mongoose.Schema({
+  name: String,
+  description: String,
+  price: Number,
+  category: String,
+  stock: Number,
+  images: [String],
+  rating: { type: Number, default: 0 },
+  numReviews: { type: Number, default: 0 }
+}, {
+  timestamps: true
+});
 
-// Import middleware
-const { protect } = require('../backend/middleware/auth');
+const Product = mongoose.model('Product', productSchema);
 
-// Generate JWT Token
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d'
-  });
+// Simple User Schema
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: { type: String, unique: true },
+  password: String,
+  role: { type: String, default: 'user' }
+}, {
+  timestamps: true
+});
+
+const User = mongoose.model('User', userSchema);
+
+// Connect to MongoDB
+const connectDB = async () => {
+  try {
+    if (!process.env.MONGODB_URI) {
+      console.error('MONGODB_URI not found');
+      return false;
+    }
+    
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('✅ MongoDB Connected');
+    return true;
+  } catch (error) {
+    console.error('❌ MongoDB Connection Error:', error.message);
+    return false;
+  }
 };
 
-// Basic route
+// Test endpoint
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the E-commerce API' });
+  res.json({ 
+    message: 'E-commerce API is running!',
+    timestamp: new Date().toISOString(),
+    status: 'OK'
+  });
 });
 
-// Auth routes
-app.post('/auth/register', async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-
-    // Check if user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({
-        success: false,
-        message: 'User already exists'
-      });
-    }
-
-    // Create user
-    const user = await User.create({
-      name,
-      email,
-      password
-    });
-
-    if (user) {
-      res.status(201).json({
-        success: true,
-        data: {
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          token: generateToken(user._id)
-        }
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
-
-app.post('/auth/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // Check if user exists
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid credentials'
-      });
-    }
-
-    // Check if password matches
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid credentials'
-      });
-    }
-
-    res.json({
-      success: true,
-      data: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        token: generateToken(user._id)
-      }
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
-
-app.get('/auth/me', protect, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    res.json({
-      success: true,
-      data: user
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
-
-app.get('/auth/users', protect, async (req, res) => {
-  try {
-    // Check if current user is admin
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({
-        success: false,
-        message: 'Access denied. Admin privileges required.'
-      });
-    }
-
-    const users = await User.find({}).select('-password -resetPasswordToken -resetPasswordExpires').sort({ createdAt: -1 });
-
-    res.json({
-      success: true,
-      data: users,
-      count: users.length
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
-
-// Products routes
+// Products endpoint - most important for mobile
 app.get('/products', async (req, res) => {
   try {
-    const { search, category, minPrice, maxPrice, sort } = req.query;
+    console.log('📱 Products request received');
     
-    let query = {};
-    
-    // Search functionality
-    if (search) {
-      query.$or = [
-        { name: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } },
-        { category: { $regex: search, $options: 'i' } }
-      ];
+    // Connect to database
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
+        success: false,
+        message: 'Database connection failed'
+      });
     }
     
-    // Category filter
-    if (category && category !== 'all') {
-      query.category = category;
-    }
+    // Get products with simple query
+    const products = await Product.find({}).sort({ createdAt: -1 });
     
-    // Price range filter
-    if (minPrice || maxPrice) {
-      query.price = {};
-      if (minPrice) query.price.$gte = parseFloat(minPrice);
-      if (maxPrice) query.price.$lte = parseFloat(maxPrice);
-    }
-    
-    // Sorting
-    let sortOption = {};
-    if (sort) {
-      switch (sort) {
-        case 'price-low':
-          sortOption = { price: 1 };
-          break;
-        case 'price-high':
-          sortOption = { price: -1 };
-          break;
-        case 'name':
-          sortOption = { name: 1 };
-          break;
-        case 'newest':
-          sortOption = { createdAt: -1 };
-          break;
-        default:
-          sortOption = { createdAt: -1 };
-      }
-    } else {
-      sortOption = { createdAt: -1 };
-    }
-    
-    const products = await Product.find(query).sort(sortOption);
+    console.log(`📱 Found ${products.length} products`);
     
     res.json({
       success: true,
@@ -266,6 +98,7 @@ app.get('/products', async (req, res) => {
       count: products.length
     });
   } catch (error) {
+    console.error('📱 Products error:', error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -273,8 +106,17 @@ app.get('/products', async (req, res) => {
   }
 });
 
+// Single product endpoint
 app.get('/products/:id', async (req, res) => {
   try {
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
+        success: false,
+        message: 'Database connection failed'
+      });
+    }
+    
     const product = await Product.findById(req.params.id);
     
     if (!product) {
@@ -296,16 +138,125 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
-app.post('/products', protect, async (req, res) => {
+// Simple auth endpoints
+app.post('/auth/login', async (req, res) => {
   try {
-    // Check if user is admin
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({
+    const { email, password } = req.body;
+    
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
         success: false,
-        message: 'Access denied. Admin privileges required.'
+        message: 'Database connection failed'
       });
     }
+    
+    const user = await User.findOne({ email });
+    
+    if (!user || user.password !== password) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid credentials'
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
 
+app.post('/auth/register', async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
+        success: false,
+        message: 'Database connection failed'
+      });
+    }
+    
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({
+        success: false,
+        message: 'User already exists'
+      });
+    }
+    
+    const user = await User.create({
+      name,
+      email,
+      password
+    });
+    
+    res.status(201).json({
+      success: true,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
+// Admin endpoints
+app.get('/auth/users', async (req, res) => {
+  try {
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
+        success: false,
+        message: 'Database connection failed'
+      });
+    }
+    
+    const users = await User.find({}).select('-password');
+    
+    res.json({
+      success: true,
+      data: users,
+      count: users.length
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
+// Admin product management
+app.post('/products', async (req, res) => {
+  try {
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
+        success: false,
+        message: 'Database connection failed'
+      });
+    }
+    
     const product = await Product.create(req.body);
     
     res.status(201).json({
@@ -320,20 +271,20 @@ app.post('/products', protect, async (req, res) => {
   }
 });
 
-app.put('/products/:id', protect, async (req, res) => {
+app.put('/products/:id', async (req, res) => {
   try {
-    // Check if user is admin
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
         success: false,
-        message: 'Access denied. Admin privileges required.'
+        message: 'Database connection failed'
       });
     }
-
+    
     const product = await Product.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { new: true }
     );
     
     if (!product) {
@@ -355,16 +306,16 @@ app.put('/products/:id', protect, async (req, res) => {
   }
 });
 
-app.delete('/products/:id', protect, async (req, res) => {
+app.delete('/products/:id', async (req, res) => {
   try {
-    // Check if user is admin
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({
+    const connected = await connectDB();
+    if (!connected) {
+      return res.status(500).json({
         success: false,
-        message: 'Access denied. Admin privileges required.'
+        message: 'Database connection failed'
       });
     }
-
+    
     const product = await Product.findByIdAndDelete(req.params.id);
     
     if (!product) {
@@ -386,47 +337,7 @@ app.delete('/products/:id', protect, async (req, res) => {
   }
 });
 
-// Orders routes
-app.get('/orders', protect, async (req, res) => {
-  try {
-    const orders = await Order.find({ user: req.user._id }).populate('products.product');
-    
-    res.json({
-      success: true,
-      data: orders
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
-
-app.post('/orders', protect, async (req, res) => {
-  try {
-    const { products, shippingAddress, paymentMethod } = req.body;
-    
-    const order = await Order.create({
-      user: req.user._id,
-      products,
-      shippingAddress,
-      paymentMethod
-    });
-    
-    res.status(201).json({
-      success: true,
-      data: order
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-});
-
-// Handle 404 errors
+// Handle 404
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
@@ -434,26 +345,18 @@ app.use('*', (req, res) => {
   });
 });
 
-// Error handling middleware
+// Error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ 
+  console.error('❌ Error:', err);
+  res.status(500).json({
     success: false,
-    message: 'Something went wrong!' 
+    message: 'Something went wrong!'
   });
 });
 
 // Vercel serverless function handler
 module.exports = async (req, res) => {
-  // Connect to database
-  try {
-    await connectDB();
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: 'Database connection failed'
-    });
-  }
+  console.log('🚀 API request:', req.method, req.url);
   
   // Handle the request
   return app(req, res);
