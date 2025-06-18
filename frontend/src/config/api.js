@@ -2,8 +2,8 @@
 const getApiBaseUrl = () => {
   // Check if we're in production (Vercel)
   if (import.meta.env.PROD) {
-    // Use environment variable if set, otherwise use your deployed backend URL
-    return import.meta.env.VITE_API_URL || 'https://your-backend-domain.com/api';
+    // Use relative URL since both frontend and backend are on same domain
+    return '/api';
   }
   
   // Development - use localhost

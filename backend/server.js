@@ -43,7 +43,8 @@ app.use(cors({
       'http://localhost:4173',
       'https://ecommerce-bootcamp-ten.vercel.app',
       'https://ecommerce-bootcamp.vercel.app',
-      'https://your-app-name.vercel.app' // Replace with your actual Vercel domain
+      // Allow same origin (for Vercel deployment)
+      origin
     ];
     
     // Check if origin is allowed
