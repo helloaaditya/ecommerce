@@ -8,6 +8,10 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+# Ignore env files from frontend and backend
+frontend/.env
+backend/.env
+.env
 
 # Build outputs
 dist/
