@@ -161,7 +161,7 @@ const Navbar = () => {
               Categories
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-200"></span>
             </Link>
-            <Link to="/deals" className="text-white hover:text-blue-400 font-medium transition-colors duration-200 relative group">
+            <Link to="/deals" className="ml-6 text-white hover:text-blue-400 font-medium transition-colors duration-200 relative group">
               Deals
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-200"></span>
             </Link>
@@ -175,16 +175,8 @@ const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center ml-auto">
-            {/* Desktop: Wishlist and Cart */}
-            <div className="hidden lg:flex items-center space-x-2 mr-2">
-              <Link to="/wishlist" className="relative p-2 text-slate-300 hover:text-red-400 transition-colors duration-200 group">
-                <Heart className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-                {wishlistCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">
-                    {wishlistCount}
-                  </span>
-                )}
-              </Link>
+            {/* Desktop: Cart only (remove Wishlist) */}
+            <div className="hidden lg:flex items-center space-x-2 mr-4 ml-4">
               <Link to="/cart" className="relative p-2 text-slate-300 hover:text-green-400 transition-colors duration-200 group">
                 <ShoppingCart className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                 {cartCount > 0 && (
@@ -205,8 +197,8 @@ const Navbar = () => {
                   <User className="h-4 w-4 text-white" />
                 </div>
                 <div className="text-left">
-                  <p className="text-white text-sm font-medium">{user?.name}</p>
-                  <p className="text-slate-400 text-xs">Premium Member</p>
+                  <p className="text-white text-sm font-medium">{user?.name || 'Account'}</p>
+                  <p className="text-slate-400 text-xs">{isAuthenticated ? 'Premium Member' : 'Guest'}</p>
                 </div>
               </button>
               {isUserMenuOpen && (
@@ -214,28 +206,39 @@ const Navbar = () => {
                   ref={userMenuRef}
                   className="absolute right-0 mt-3 w-64 bg-slate-800 rounded-2xl shadow-2xl py-2 z-50 border border-slate-600"
                 >
-                  {isAuthenticated && (
-                    <div className="px-4 py-3 border-b border-slate-700">
-                      <p className="text-white font-medium">{user?.name}</p>
-                      <p className="text-slate-400 text-sm">{user?.email}</p>
+                  {isAuthenticated ? (
+                    <>
+                      <div className="px-4 py-3 border-b border-slate-700">
+                        <p className="text-white font-medium">{user?.name}</p>
+                        <p className="text-slate-400 text-sm">{user?.email}</p>
+                      </div>
+                      <div className="py-2">
+                        <Link to="/profile" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => setIsUserMenuOpen(false)}>
+                          <User className="h-4 w-4 mr-3" />My Profile
+                        </Link>
+                        <Link to="/orders" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => setIsUserMenuOpen(false)}>
+                          <ShoppingCart className="h-4 w-4 mr-3" />My Orders
+                        </Link>
+                        <Link to="/wishlist" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => setIsUserMenuOpen(false)}>
+                          <Heart className="h-4 w-4 mr-3" />Wishlist
+                        </Link>
+                      </div>
+                      <div className="border-t border-slate-700 pt-2">
+                        <button onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-slate-700 hover:text-white transition-colors duration-200">
+                          <LogOut className="h-4 w-4 mr-3" />Logout
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="py-2">
+                      <Link to="/login" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => { setIsUserMenuOpen(false); navigate('/login'); }}>
+                        <LogIn className="h-4 w-4 mr-3" />Login
+                      </Link>
+                      <Link to="/register" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => { setIsUserMenuOpen(false); navigate('/register'); }}>
+                        <UserPlus className="h-4 w-4 mr-3" />Register
+                      </Link>
                     </div>
                   )}
-                  <div className="py-2">
-                    <Link to="/profile" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => setIsUserMenuOpen(false)}>
-                      <User className="h-4 w-4 mr-3" />My Profile
-                    </Link>
-                    <Link to="/orders" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => setIsUserMenuOpen(false)}>
-                      <ShoppingCart className="h-4 w-4 mr-3" />My Orders
-                    </Link>
-                    <Link to="/wishlist" className="flex items-center px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" onClick={() => setIsUserMenuOpen(false)}>
-                      <Heart className="h-4 w-4 mr-3" />Wishlist
-                    </Link>
-                  </div>
-                  <div className="border-t border-slate-700 pt-2">
-                    <button onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-slate-700 hover:text-white transition-colors duration-200">
-                      <LogOut className="h-4 w-4 mr-3" />Logout
-                    </button>
-                  </div>
                 </div>
               )}
             </div>
