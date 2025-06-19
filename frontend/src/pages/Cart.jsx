@@ -51,7 +51,7 @@ const Cart = () => {
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="relative flex justify-center items-center min-h-screen px-4 sm:px-6 lg:px-8">
+        <div className="relative flex justify-center items-center min-h-screen px-2 sm:px-6 lg:px-8">
           <div className="text-center max-w-md w-full">
             <div className="relative mb-6 sm:mb-8">
               <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-2xl">

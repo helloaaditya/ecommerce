@@ -1,10 +1,10 @@
 // Add axios defaults for base URL
 import axios from 'axios';
+import.meta.env.VITE_API_URL
 
 // API Configuration for different environments
 const getApiBaseUrl = () => {
-  // Use VITE_API_URL if set, otherwise fallback to the Render backend URL
-  return import.meta.env.VITE_API_URL || 'https://ecommerce-sshz.onrender.com/api';
+  return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 };
 
 // Configure axios defaults
