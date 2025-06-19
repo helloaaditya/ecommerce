@@ -2,6 +2,28 @@
 
 A Node.js/Express backend for the ShopHub e-commerce platform.
 
+# 🚀 Render Deployment Instructions
+
+## Required Environment Variables
+Create these in the Render dashboard under Environment > Environment Variables:
+- `PORT` (Render sets this automatically, but you can set a default)
+- `NODE_ENV` (set to `production`)
+- `MONGODB_URI` (your MongoDB Atlas connection string)
+- `JWT_SECRET` (a strong secret for JWT)
+- `FRONTEND_URL` (your deployed frontend URL, e.g., https://your-frontend.vercel.app)
+- `EMAIL_USER` (your email for nodemailer)
+- `EMAIL_PASS` (your app password for nodemailer)
+
+## Steps to Deploy on Render
+1. Push your backend code to GitHub.
+2. Go to https://dashboard.render.com/ and create a new Web Service.
+3. Connect your GitHub repo and select the backend folder as the root directory.
+4. Set the **Start Command** to `npm start`.
+5. Add all required environment variables.
+6. Click **Create Web Service** and wait for deployment.
+7. After deployment, note your Render backend URL (e.g., https://your-backend.onrender.com).
+8. Update your frontend to use this backend URL for API requests.
+
 ## Features
 
 - User authentication (register, login, forgot password)
