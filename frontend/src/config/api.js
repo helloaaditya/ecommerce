@@ -1,17 +1,20 @@
+// Add axios defaults for base URL
+import axios from 'axios';
+
 // API Configuration for different environments
 const getApiBaseUrl = () => {
   // Check if we're in production (Vercel)
   if (import.meta.env.PROD) {
-    // Use relative URL since both frontend and backend are on same domain
-    return '/api';
+    // Use deployed backend domain in production
+    return 'https://ecommerce-bootcamp-tug5.vercel.app/api';
   }
-  
   // Development - use localhost
   return 'http://localhost:5000/api';
 };
 
 // Configure axios defaults
 export const API_BASE_URL = getApiBaseUrl();
+axios.defaults.baseURL = API_BASE_URL;
 
 // Log the API URL for debugging (only in development)
 if (import.meta.env.DEV) {
@@ -19,7 +22,6 @@ if (import.meta.env.DEV) {
 }
 
 // Add axios interceptors for better error handling
-import axios from 'axios';
 
 // Request interceptor to add auth token
 axios.interceptors.request.use(
