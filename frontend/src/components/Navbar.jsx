@@ -141,7 +141,7 @@ const Navbar = () => {
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
             {/* Shopping Cart */}
-            <Link to="/cart" className="relative p-2 text-slate-300 hover:text-green-400 transition-colors duration-200 group">
+            <Link to="/cart" className="relative p-2 text-slate-300 hover:text-green-400 transition-colors duration-200 group ml-6">
               <ShoppingCart className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-pulse">
