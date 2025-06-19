@@ -150,8 +150,20 @@ const Navbar = () => {
               )}
             </Link>
 
-            {/* User Menu */}
-            {isAuthenticated ? (
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 text-slate-300 hover:text-white transition-colors duration-200"
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+
+             {/* User Menu */}
+             {isAuthenticated ? (
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -213,18 +225,6 @@ const Navbar = () => {
                 </Link>
               </div>
             )}
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-slate-300 hover:text-white transition-colors duration-200"
-            >
-              {isMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
           </div>
         </div>
 
