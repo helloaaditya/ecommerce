@@ -39,6 +39,7 @@ app.use(cors({
     
     const allowedOrigins = [
       'http://localhost:3000',
+      'http://localhost:5173/',
       'https://ecommerce-six-beta-59.vercel.app',
       // Allow same origin (for Vercel deployment)
       origin

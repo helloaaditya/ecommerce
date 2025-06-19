@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X, Search, Heart, MapPin } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -16,6 +16,31 @@ const Navbar = () => {
   const { getWishlistCount } = useWishlist();
   const navigate = useNavigate();
   
+  // Refs for dropdown and button
+  const userMenuRef = useRef(null);
+  const userButtonRef = useRef(null);
+
+  // Close user menu on outside click or scroll
+  useEffect(() => {
+    if (!isUserMenuOpen) return;
+    function handleClickOrScroll(e) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(e.target) &&
+        userButtonRef.current &&
+        !userButtonRef.current.contains(e.target)
+      ) {
+        setIsUserMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOrScroll);
+    window.addEventListener('scroll', handleClickOrScroll);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOrScroll);
+      window.removeEventListener('scroll', handleClickOrScroll);
+    };
+  }, [isUserMenuOpen]);
+
   // Get real counts from contexts
   const cartCount = getCartCount();
   const wishlistCount = getWishlistCount();
@@ -138,8 +163,8 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
+          {/* Right Side Actions and Mobile Menu Button */}
+          <div className="flex items-center space-x-2 lg:space-x-4 ml-auto">
             {/* Wishlist */}
             <Link to="/wishlist" className="relative p-2 text-slate-300 hover:text-red-400 transition-colors duration-200 group">
               <Heart className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
@@ -164,6 +189,7 @@ const Navbar = () => {
             {isAuthenticated ? (
               <div className="relative">
                 <button
+                  ref={userButtonRef}
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center space-x-3 bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 px-4 py-2 rounded-xl transition-all duration-200 group border border-slate-600"
                 >
@@ -177,7 +203,10 @@ const Navbar = () => {
                 </button>
 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-3 w-64 bg-slate-800 rounded-2xl shadow-2xl py-2 z-50 border border-slate-600">
+                  <div
+                    ref={userMenuRef}
+                    className="absolute right-0 mt-3 w-64 bg-slate-800 rounded-2xl shadow-2xl py-2 z-50 border border-slate-600"
+                  >
                     <div className="px-4 py-3 border-b border-slate-700">
                       <p className="text-white font-medium">{user?.name}</p>
                       <p className="text-slate-400 text-sm">{user?.email}</p>
@@ -208,33 +237,22 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              <div className="hidden md:flex items-center space-x-3">
-                <Link
-                  to="/login"
-                  className="text-slate-300 hover:text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 shadow-lg"
-                >
-                  Sign Up
-                </Link>
-              </div>
+              <Link to="/login" className="p-2 text-slate-300 hover:text-blue-400 transition-colors duration-200">
+                <User className="h-6 w-6" />
+              </Link>
             )}
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-slate-300 hover:text-white transition-colors duration-200"
-            >
-              {isMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
+            {/* Mobile Menu Button - always last on right */}
+            <div className="flex lg:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                aria-controls="mobile-menu"
+                aria-expanded={isMenuOpen}
+              >
+                {isMenuOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -265,67 +283,55 @@ const Navbar = () => {
           </form>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-slate-800 rounded-2xl mt-4 p-4 border border-slate-600">
-            <div className="space-y-4">
-              <Link
-                to="/"
-                onClick={() => setIsMenuOpen(false)}
-                className="block text-white hover:text-blue-400 font-medium transition-colors duration-200"
-              >
-                Home
+          <div className="lg:hidden mt-2 bg-slate-900 rounded-xl shadow-xl py-4 px-6 space-y-4 z-40">
+            <Link to="/" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+              Home
+            </Link>
+            <Link to="/products" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+              Products
+            </Link>
+            <Link to="/categories" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+              Categories
+            </Link>
+            <Link to="/deals" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+              Deals
+            </Link>
+            {isAuthenticated && isAdmin && (
+              <Link to="/admin" className="block text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                Admin
               </Link>
-              <Link
-                to="/products"
-                onClick={() => setIsMenuOpen(false)}
-                className="block text-white hover:text-blue-400 font-medium transition-colors duration-200"
-              >
-                Products
-              </Link>
-              <Link
-                to="/categories"
-                onClick={() => setIsMenuOpen(false)}
-                className="block text-white hover:text-blue-400 font-medium transition-colors duration-200"
-              >
-                Categories
-              </Link>
-              <Link
-                to="/deals"
-                onClick={() => setIsMenuOpen(false)}
-                className="block text-white hover:text-blue-400 font-medium transition-colors duration-200"
-              >
-                Deals
-              </Link>
-              {isAuthenticated && isAdmin && (
-                <Link
-                  to="/admin"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200"
-                >
-                  Admin
+            )}
+            <Link to="/wishlist" className="block text-white hover:text-red-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+              Wishlist
+            </Link>
+            <Link to="/cart" className="block text-white hover:text-green-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+              Cart
+            </Link>
+            {!isAuthenticated && (
+              <>
+                <Link to="/login" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                  Login
                 </Link>
-              )}
-              
-              {!isAuthenticated && (
-                <div className="pt-4 border-t border-slate-700 space-y-3">
-                  <Link
-                    to="/login"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block text-slate-300 hover:text-white font-medium transition-colors duration-200"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/register"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-xl font-medium transition-all duration-200 text-center"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              )}
-            </div>
+                <Link to="/register" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                  Register
+                </Link>
+              </>
+            )}
+            {isAuthenticated && (
+              <>
+                <Link to="/profile" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                  My Profile
+                </Link>
+                <Link to="/orders" className="block text-white hover:text-blue-400 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                  My Orders
+                </Link>
+                <button onClick={handleLogout} className="block w-full text-left text-red-400 hover:text-red-300 font-medium transition-colors duration-200 mt-2">
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         )}
       </div>
