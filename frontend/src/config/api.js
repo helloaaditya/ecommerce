@@ -4,7 +4,7 @@ import axios from 'axios';
 // API Configuration for different environments
 const getApiBaseUrl = () => {
   // Use VITE_API_URL if set, otherwise fallback to localhost
-  return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  return import.meta.env.VITE_API_URL;
 };
 
 // Configure axios defaults
