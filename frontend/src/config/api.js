@@ -3,8 +3,8 @@ import axios from 'axios';
 
 // API Configuration for different environments
 const getApiBaseUrl = () => {
-  // Use VITE_API_URL if set, otherwise fallback to localhost
-  return import.meta.env.VITE_API_URL;
+  // Use VITE_API_URL if set, otherwise fallback to the Render backend URL
+  return import.meta.env.VITE_API_URL || 'https://ecommerce-sshz.onrender.com/api';
 };
 
 // Configure axios defaults
