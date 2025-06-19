@@ -3,13 +3,8 @@ import axios from 'axios';
 
 // API Configuration for different environments
 const getApiBaseUrl = () => {
-  // Check if we're in production (Vercel)
-  if (import.meta.env.PROD) {
-    // Use deployed backend domain in production
-    return 'https://ecommerce-bootcamp-tug5.vercel.app/api';
-  }
-  // Development - use localhost
-  return 'http://localhost:5000/api';
+  // Use VITE_API_URL if set, otherwise fallback to localhost
+  return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 };
 
 // Configure axios defaults
@@ -21,7 +16,6 @@ if (import.meta.env.DEV) {
   console.log('🌐 API Base URL:', API_BASE_URL);
 }
 
-// Add axios interceptors for better error handling
 
 // Request interceptor to add auth token
 axios.interceptors.request.use(

@@ -37,3 +37,14 @@ To deploy this frontend project to Vercel, follow these steps:
 ---
 
 If you encounter any build errors, check the Vercel deployment logs for details and resolve any missing dependencies or configuration issues.
+
+# Environment Variables for Production
+
+To use a custom backend API URL in production, set the environment variable `VITE_API_URL` in your Vercel project settings:
+
+- Go to your project in the Vercel dashboard.
+- Navigate to Settings > Environment Variables.
+- Add `VITE_API_URL` and set its value to your deployed backend URL (e.g., https://your-backend.onrender.com/api).
+- Redeploy your project after saving changes.
+
+The frontend will automatically use this value for all API requests in production.
