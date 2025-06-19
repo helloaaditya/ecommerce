@@ -140,16 +140,6 @@ const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
-            {/* Wishlist */}
-            <Link to="/wishlist" className="relative p-2 text-slate-300 hover:text-red-400 transition-colors duration-200 group ml-4">
-              <Heart className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-              {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">
-                  {wishlistCount}
-                </span>
-              )}
-            </Link>
-
             {/* Shopping Cart */}
             <Link to="/cart" className="relative p-2 text-slate-300 hover:text-green-400 transition-colors duration-200 group">
               <ShoppingCart className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
