@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { usePopup } from '../context/PopupContext';
 import { 
@@ -21,6 +21,7 @@ const Cart = () => {
   const { showPopup } = usePopup();
   const [removingItem, setRemovingItem] = useState(null);
   const [updatingQuantity, setUpdatingQuantity] = useState(null);
+  const navigate = useNavigate();
 
   const handleRemoveItem = async (itemId) => {
     setRemovingItem(itemId);
@@ -274,7 +275,10 @@ const Cart = () => {
                 </p>
               </div>
 
-              <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-base sm:text-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl mb-3 sm:mb-4">
+              <button
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-base sm:text-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl mb-3 sm:mb-4"
+                onClick={() => navigate('/checkout')}
+              >
                 Proceed to Checkout
               </button>
 

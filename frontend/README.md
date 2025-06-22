@@ -48,3 +48,36 @@ To use a custom backend API URL in production, set the environment variable `VIT
 - Redeploy your project after saving changes.
 
 The frontend will automatically use this value for all API requests in production.
+
+# Procedure followed *
+
+1. **UI/UX Enhancements:**
+   - Redesigned the Home page for a modern, interactive, and eye-catching e-commerce look.
+   - Added animated text, parallax effects, and beautiful gradients.
+   - Improved all section headings, buttons, and cards for clarity and engagement.
+
+2. **Mobile Friendliness:**
+   - Made the entire home page and all major sections fully responsive.
+   - Used Tailwind CSS responsive classes to ensure proper alignment, font sizes, and spacing on all devices.
+   - Ensured all grids collapse to single column and all buttons are full width on mobile.
+
+3. **Global Popup Notification System:**
+   - Implemented a global popup using React Context (`PopupContext`).
+   - All cart and wishlist actions across the site now show success or login-required popups.
+   - Popup auto-dismisses and can be closed manually.
+
+4. **Consistent User Feedback:**
+   - Added popups for add/remove cart, wishlist, and quantity updates on all relevant pages (Home, Products, ProductDetail, Wishlist, Cart).
+   - Ensured users always get clear feedback for their actions, whether logged in or not.
+
+5. **Code Refactoring:**
+   - Centralized notification logic for maintainability and scalability.
+   - Updated all relevant handlers to use the global popup system.
+
+6. **Accessibility & Usability:**
+   - Improved button sizes, touch targets, and color contrast for accessibility.
+   - Ensured no horizontal scrolling or overflow on mobile.
+
+---
+
+For any further improvements or customizations, see the code comments or contact the project maintainer.

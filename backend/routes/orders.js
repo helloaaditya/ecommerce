@@ -69,13 +69,14 @@ router.post('/', protect, async (req, res) => {
   try {
     const { items, shippingAddress, total, paymentMethod } = req.body;
 
-    const order = await Order.create({
+    const order = new Order({
       user: req.user._id,
       items,
       shippingAddress,
       total,
       paymentMethod
     });
+    await order.save();
 
     const populatedOrder = await Order.findById(order._id)
       .populate('items.product', 'name images')

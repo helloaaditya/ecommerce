@@ -23,6 +23,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/reset-password/:token" element={<ResetPassword />} />
                   <Route path="/cart" element={<Cart />} />
+                  <Route path="/checkout" element={<Checkout />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/categories" element={<Categories />} />
                   <Route path="/deals" element={<Deals />} />
