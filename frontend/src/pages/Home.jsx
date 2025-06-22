@@ -219,8 +219,8 @@ const Home = () => {
           <div className="absolute bottom-20 right-1/3 w-16 h-16 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-xl animate-pulse delay-3000"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center w-full">
             <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               {/* Animated Badge */}
               <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/20 animate-pulse">
@@ -250,10 +250,10 @@ const Home = () => {
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full max-w-md mx-auto sm:max-w-none sm:mx-0">
                 <Link
                   to="/products"
-                  className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 md:px-10 md:py-5 rounded-2xl font-bold text-lg md:text-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center overflow-hidden"
+                  className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white w-full sm:w-auto px-6 py-3 md:px-10 md:py-5 rounded-2xl font-bold text-lg md:text-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center">
                     Start Shopping
@@ -261,8 +261,7 @@ const Home = () => {
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
-                
-                <button className="group relative border-2 border-white/30 text-white px-6 py-3 md:px-10 md:py-5 rounded-2xl font-bold text-lg md:text-xl hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center backdrop-blur-sm">
+                <button className="group relative border-2 border-white/30 text-white w-full sm:w-auto px-6 py-3 md:px-10 md:py-5 rounded-2xl font-bold text-lg md:text-xl hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center backdrop-blur-sm">
                   <Play className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6 group-hover:scale-110 transition-transform" />
                   Watch Demo
                 </button>
@@ -319,13 +318,13 @@ const Home = () => {
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-black text-slate-900 mb-6">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-3 md:mb-6">
               Why Choose{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 ShopHub?
               </span>
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-sm md:text-xl text-slate-600 max-w-3xl mx-auto mb-4 md:mb-0">
               Experience the difference with our premium features designed to make your shopping journey seamless and enjoyable.
             </p>
           </div>
@@ -359,13 +358,13 @@ const Home = () => {
       <section className="py-20 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-black text-slate-900 mb-6">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-3 md:mb-6">
               Shop by{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Category
               </span>
             </h2>
-            <p className="text-xl text-slate-600">Explore our wide range of products across various categories</p>
+            <p className="text-sm md:text-xl text-slate-600 mb-4 md:mb-0">Explore our wide range of products across various categories</p>
           </div>
           
           {categoryLoading ? (
@@ -376,7 +375,7 @@ const Home = () => {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-8">
               {categories.map((category, index) => (
                 <Link
                   key={index}
@@ -419,26 +418,23 @@ const Home = () => {
       </section>
 
       {/* Featured Products Section with Enhanced Cards */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+      <section className="py-10 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23000000%22%20fill-opacity%3D%220.02%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center mb-16">
-            <div>
-              <h2 className="text-5xl font-black text-slate-900 mb-4">
-                Featured{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Products
-                </span>
-              </h2>
-              <p className="text-xl text-slate-600">Handpicked products for you</p>
-            </div>
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-8 md:mb-16">
+            <h2 className="text-4xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-0 truncate whitespace-nowrap">
+              Featured{' '}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Products
+              </span>
+            </h2>
             <Link
               to="/products"
-              className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
+              className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white w-auto px-6 py-3 md:px-8 md:py-4 rounded-2xl font-bold text-base md:text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center mb-0"
             >
               View All
-              <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
@@ -450,11 +446,11 @@ const Home = () => {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-8">
               {featuredProducts.map((product, index) => (
                 <div 
                   key={product._id} 
-                  className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-slate-100 overflow-hidden"
+                  className="group bg-white rounded-2xl md:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 md:hover:-translate-y-4 border border-slate-100 overflow-hidden"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="relative">
@@ -463,7 +459,7 @@ const Home = () => {
                         <img
                           src={product.images[0]}
                           alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-t-2xl md:rounded-t-3xl"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-slate-400">
@@ -494,8 +490,8 @@ const Home = () => {
                     )}
                   </div>
                   
-                  <div className="p-6">
-                    <div className="flex items-center mb-3">
+                  <div className="p-4 md:p-6 flex flex-col flex-1">
+                    <div className="flex items-center mb-2 md:mb-3">
                       <div className="flex text-yellow-400">
                         {[...Array(5)].map((_, i) => (
                           <Star
@@ -504,28 +500,28 @@ const Home = () => {
                           />
                         ))}
                       </div>
-                      <span className="text-sm text-slate-500 ml-2">
+                      <span className="text-xs md:text-sm text-slate-500 ml-2">
                         ({product.numOfReviews || 0})
                       </span>
                     </div>
                     
                     <Link to={`/products/${product._id}`}>
-                      <h3 className="font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2 text-lg">
+                      <h3 className="font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors line-clamp-2 text-base md:text-lg">
                         {product.name}
                       </h3>
                     </Link>
                     
-                    <p className="text-slate-600 text-sm mb-6 line-clamp-2 leading-relaxed">
+                    <p className="text-slate-600 text-xs md:text-sm mb-2 md:mb-6 line-clamp-2 leading-relaxed">
                       {product.description}
                     </p>
                     
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mt-auto">
                       <div>
-                        <span className="text-3xl font-black text-slate-900">
+                        <span className="text-xl md:text-3xl font-black text-slate-900">
                           ${product.price}
                         </span>
                         {product.stock > 0 && (
-                          <span className="text-sm text-green-600 ml-2 font-medium flex items-center">
+                          <span className="text-xs md:text-sm text-green-600 ml-2 font-medium flex items-center">
                             <CheckCircle className="h-4 w-4 mr-1" />
                             In Stock
                           </span>
@@ -535,7 +531,7 @@ const Home = () => {
                       <button
                         onClick={() => handleAddToCart(product)}
                         disabled={product.stock === 0}
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-110 shadow-lg flex items-center"
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-3 md:p-4 rounded-xl md:rounded-2xl hover:from-blue-700 hover:to-purple-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
                       >
                         <ShoppingCart className="h-5 w-5" />
                       </button>
@@ -563,7 +559,7 @@ const Home = () => {
             <p className="text-xl text-blue-100">Real reviews from real customers</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
             {[
               {
                 name: 'Priya Sharma',
@@ -589,25 +585,25 @@ const Home = () => {
             ].map((testimonial, index) => (
               <div 
                 key={index} 
-                className="group bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-2"
+                className="group bg-white/10 backdrop-blur-md p-4 md:p-8 rounded-2xl md:rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 transform hover:-translate-y-1 md:hover:-translate-y-2"
               >
-                <div className="flex items-center mb-6">
+                <div className="flex items-center mb-4 md:mb-6">
                   <div className="flex text-yellow-400">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-current" />
+                      <Star key={i} className="h-4 w-4 md:h-5 md:w-5 fill-current" />
                     ))}
                   </div>
                 </div>
-                <p className="text-blue-100 mb-8 italic text-lg leading-relaxed">"{testimonial.content}"</p>
+                <p className="text-blue-100 mb-4 md:mb-8 italic text-sm md:text-lg leading-relaxed">"{testimonial.content}"</p>
                 <div className="flex items-center">
                   <img
                     src={testimonial.avatar}
                     alt={testimonial.name}
-                    className="w-14 h-14 rounded-full mr-4 ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-300"
+                    className="w-10 h-10 md:w-14 md:h-14 rounded-full mr-3 md:mr-4 ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-300"
                   />
                   <div>
-                    <div className="font-bold text-white text-lg">{testimonial.name}</div>
-                    <div className="text-blue-200 text-sm">{testimonial.role}</div>
+                    <div className="font-bold text-white text-base md:text-lg">{testimonial.name}</div>
+                    <div className="text-blue-200 text-xs md:text-sm">{testimonial.role}</div>
                   </div>
                 </div>
               </div>
