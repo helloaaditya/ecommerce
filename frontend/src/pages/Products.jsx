@@ -3,6 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { usePopup } from '../context/PopupContext';
+import { useAuth } from '../context/AuthContext';
 import { 
   ShoppingBagIcon, 
   HeartIcon,
@@ -26,6 +28,8 @@ const Products = () => {
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { user } = useAuth ? useAuth() : { user: null };
+  const { showPopup } = usePopup();
 
   const categories = [
     { name: 'All', value: '', icon: '🌟' },
@@ -97,15 +101,26 @@ const Products = () => {
   };
 
   const handleAddToCart = (product) => {
-    addToCart(product, 1);
+    if (user) {
+      addToCart(product, 1);
+      showPopup('Added to cart!', 'success');
+    } else {
+      showPopup('Please log in to add to cart.', 'login');
+    }
   };
 
   const handleAddToWishlist = (product) => {
-    addToWishlist(product);
+    if (user) {
+      addToWishlist(product);
+      showPopup('Added to wishlist!', 'success');
+    } else {
+      showPopup('Please log in to add to wishlist.', 'login');
+    }
   };
 
   const handleRemoveFromWishlist = (product) => {
     removeFromWishlist(product);
+    showPopup('Removed from wishlist.', 'success');
   };
 
   const handleCategoryChange = (newCategory) => {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { usePopup } from '../context/PopupContext';
 import { 
   TrashIcon, 
   PlusIcon, 
@@ -17,15 +18,16 @@ import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const { showPopup } = usePopup();
   const [removingItem, setRemovingItem] = useState(null);
   const [updatingQuantity, setUpdatingQuantity] = useState(null);
 
   const handleRemoveItem = async (itemId) => {
     setRemovingItem(itemId);
-    // Add a small delay for animation
     setTimeout(() => {
       removeFromCart(itemId);
       setRemovingItem(null);
+      showPopup('Removed from cart.', 'success');
     }, 300);
   };
 
@@ -33,12 +35,16 @@ const Cart = () => {
     if (newQuantity < 1) return;
     setUpdatingQuantity(itemId);
     updateQuantity(itemId, newQuantity);
-    setTimeout(() => setUpdatingQuantity(null), 200);
+    setTimeout(() => {
+      setUpdatingQuantity(null);
+      showPopup('Updated quantity.', 'success');
+    }, 200);
   };
 
   const handleClearCart = () => {
     if (window.confirm('Are you sure you want to clear your cart?')) {
       clearCart();
+      showPopup('Cart cleared.', 'success');
     }
   };
 

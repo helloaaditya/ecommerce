@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
+import { usePopup } from '../context/PopupContext';
+import { useAuth } from '../context/AuthContext';
 import { 
   HeartIcon, 
   ShoppingBagIcon,
@@ -15,14 +17,22 @@ import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 const Wishlist = () => {
   const { wishlist, removeFromWishlist, clearWishlist } = useWishlist();
   const { addToCart } = useCart();
+  const { user } = useAuth ? useAuth() : { user: null };
+  const { showPopup } = usePopup();
   const [loading, setLoading] = useState(false);
 
   const handleAddToCart = (product) => {
-    addToCart(product, 1);
+    if (user) {
+      addToCart(product, 1);
+      showPopup('Added to cart!', 'success');
+    } else {
+      showPopup('Please log in to add to cart.', 'login');
+    }
   };
 
   const handleRemoveFromWishlist = (productId) => {
     removeFromWishlist(productId);
+    showPopup('Removed from wishlist.', 'success');
   };
 
   const handleClearWishlist = () => {

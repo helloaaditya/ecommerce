@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { 
   ShoppingCart, 
   Star, 
@@ -33,6 +34,8 @@ const Home = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const { addToCart } = useCart();
+  const { user } = useAuth ? useAuth() : { user: null };
+  const [popup, setPopup] = useState({ show: false, message: '', type: 'success' });
   const heroRef = useRef(null);
 
   const animatedTexts = [
@@ -136,8 +139,25 @@ const Home = () => {
     }
   };
 
+  // Popup close handler
+  const closePopup = () => setPopup({ ...popup, show: false });
+
+  // Show popup for 2.5s
+  useEffect(() => {
+    if (popup.show) {
+      const timer = setTimeout(() => setPopup({ ...popup, show: false }), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [popup.show]);
+
+  // Add to Cart handler
   const handleAddToCart = (product) => {
-    addToCart(product, 1);
+    if (user) {
+      addToCart(product, 1);
+      setPopup({ show: true, message: 'Added to cart!', type: 'success' });
+    } else {
+      setPopup({ show: true, message: 'Please log in to add to cart.', type: 'login' });
+    }
   };
 
   const stats = [
@@ -611,6 +631,16 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Popup Notification */}
+      {popup.show && (
+        <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-4 py-3 rounded-xl shadow-lg flex items-center space-x-2
+          ${popup.type === 'success' ? 'bg-green-600 text-white' : 'bg-yellow-500 text-white'}`}
+        >
+          <span>{popup.message}</span>
+          <button onClick={closePopup} className="ml-2 text-lg font-bold focus:outline-none">&times;</button>
+        </div>
+      )}
     </div>
   );
 };

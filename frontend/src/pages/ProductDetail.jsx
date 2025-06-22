@@ -3,6 +3,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { usePopup } from '../context/PopupContext';
+import { useAuth } from '../context/AuthContext';
 import { 
   ArrowLeftIcon, 
   StarIcon, 
@@ -30,6 +32,8 @@ const ProductDetail = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { user } = useAuth ? useAuth() : { user: null };
+  const { showPopup } = usePopup();
 
   useEffect(() => {
     fetchProduct();
@@ -59,7 +63,12 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    if (user) {
+      addToCart(product, quantity);
+      showPopup('Added to cart!', 'success');
+    } else {
+      showPopup('Please log in to add to cart.', 'login');
+    }
   };
 
   const handleQuantityChange = (newQuantity) => {
@@ -69,10 +78,16 @@ const ProductDetail = () => {
   };
 
   const toggleFavorite = () => {
+    if (!user) {
+      showPopup('Please log in to add to wishlist.', 'login');
+      return;
+    }
     if (isInWishlist(product._id)) {
       removeFromWishlist(product._id);
+      showPopup('Removed from wishlist.', 'success');
     } else {
       addToWishlist(product);
+      showPopup('Added to wishlist!', 'success');
     }
   };
 
