@@ -204,9 +204,9 @@ const Home = () => {
       {/* Hero Section with Parallax */}
       <section 
         ref={heroRef}
-        className="relative py-8 bg-slate-900 text-white overflow-hidden"
+        className="relative py-12 bg-slate-900 text-white overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(rgba(20,20,30,0.85),rgba(20,20,30,0.85)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&h=1080&fit=crop')`,
+          backgroundImage: `linear-gradient(rgba(20,20,30,0.65),rgba(20,20,30,0.85)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&h=1080&fit=crop')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -231,7 +231,7 @@ const Home = () => {
               </div>
 
               {/* Main Heading with Gradient */}
-              <h1 className="text-6xl lg:text-8xl font-black mb-8 leading-tight">
+              <h1 className="text-3xl md:text-5xl lg:text-7xl font-black mb-6 md:mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
                   Welcome to{' '}
                 </span>
@@ -241,7 +241,7 @@ const Home = () => {
               </h1>
 
               {/* Animated Subtitle */}
-              <p className="text-2xl lg:text-3xl mb-12 text-blue-100 leading-relaxed font-light">
+              <p className="text-base md:text-xl lg:text-2xl mb-8 md:mb-12 text-blue-100 leading-relaxed font-light">
                 Discover amazing products at{' '}
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent font-bold">
                   unbeatable prices
@@ -250,20 +250,20 @@ const Home = () => {
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-6">
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
                 <Link
                   to="/products"
-                  className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center overflow-hidden"
+                  className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 md:px-10 md:py-5 rounded-2xl font-bold text-lg md:text-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center">
                     Start Shopping
-                    <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                    <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6 group-hover:translate-x-2 transition-transform" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
                 
-                <button className="group relative border-2 border-white/30 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center backdrop-blur-sm">
-                  <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
+                <button className="group relative border-2 border-white/30 text-white px-6 py-3 md:px-10 md:py-5 rounded-2xl font-bold text-lg md:text-xl hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center backdrop-blur-sm">
+                  <Play className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6 group-hover:scale-110 transition-transform" />
                   Watch Demo
                 </button>
               </div>
@@ -314,23 +314,23 @@ const Home = () => {
       </section>
 
       {/* Features Section with Hover Effects */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+      <section className="py-6 md:py-12 lg:py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23000000%22%20fill-opacity%3D%220.02%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black text-slate-900 mb-6">
+        <div className="relative max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-4 md:mb-6">
               Why Choose{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 ShopHub?
               </span>
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto">
               Experience the difference with our premium features designed to make your shopping journey seamless and enjoyable.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {features.map((feature, index) => (
               <div 
                 key={index}
@@ -356,16 +356,16 @@ const Home = () => {
       </section>
 
       {/* Categories Section with Enhanced Animations */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black text-slate-900 mb-6">
+      <section className="py-6 md:py-12 lg:py-20 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-4 md:mb-6">
               Shop by{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Category
               </span>
             </h2>
-            <p className="text-xl text-slate-600">Explore our wide range of products across various categories</p>
+            <p className="text-base md:text-lg text-slate-600">Explore our wide range of products across various categories</p>
           </div>
           
           {categoryLoading ? (
@@ -376,7 +376,7 @@ const Home = () => {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
               {categories.map((category, index) => (
                 <Link
                   key={index}
@@ -419,26 +419,26 @@ const Home = () => {
       </section>
 
       {/* Featured Products Section with Enhanced Cards */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+      <section className="py-6 md:py-12 lg:py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23000000%22%20fill-opacity%3D%220.02%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center mb-16">
+        <div className="relative max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 md:mb-10 lg:mb-16">
             <div>
-              <h2 className="text-5xl font-black text-slate-900 mb-4">
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-2 md:mb-4">
                 Featured{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Products
                 </span>
               </h2>
-              <p className="text-xl text-slate-600">Handpicked products for you</p>
+              <p className="text-base md:text-lg text-slate-600">Handpicked products for you</p>
             </div>
             <Link
               to="/products"
-              className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
+              className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 md:px-8 md:py-4 rounded-2xl font-bold text-base md:text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
             >
               View All
-              <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 md:ml-3 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
@@ -450,11 +450,11 @@ const Home = () => {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
               {featuredProducts.map((product, index) => (
                 <div 
                   key={product._id} 
-                  className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-slate-100 overflow-hidden"
+                  className="group bg-white rounded-2xl md:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 md:hover:-translate-y-4 border border-slate-100 overflow-hidden"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="relative">
@@ -510,22 +510,22 @@ const Home = () => {
                     </div>
                     
                     <Link to={`/products/${product._id}`}>
-                      <h3 className="font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2 text-lg">
+                      <h3 className="font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors truncate md:line-clamp-2 text-base md:text-lg">
                         {product.name}
                       </h3>
                     </Link>
                     
-                    <p className="text-slate-600 text-sm mb-6 line-clamp-2 leading-relaxed">
+                    <p className="text-slate-600 text-xs md:text-sm mb-4 md:mb-6 line-clamp-2 leading-relaxed">
                       {product.description}
                     </p>
                     
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-3xl font-black text-slate-900">
+                        <span className="text-xl md:text-2xl lg:text-3xl font-black text-slate-900">
                           ${product.price}
                         </span>
                         {product.stock > 0 && (
-                          <span className="text-sm text-green-600 ml-2 font-medium flex items-center">
+                          <span className="text-xs md:text-sm text-green-600 ml-2 font-medium flex items-center">
                             <CheckCircle className="h-4 w-4 mr-1" />
                             In Stock
                           </span>
@@ -535,7 +535,7 @@ const Home = () => {
                       <button
                         onClick={() => handleAddToCart(product)}
                         disabled={product.stock === 0}
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-110 shadow-lg flex items-center"
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-3 md:p-4 rounded-xl md:rounded-2xl hover:from-blue-700 hover:to-purple-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 md:hover:scale-110 shadow-lg flex items-center w-full md:w-auto justify-center"
                       >
                         <ShoppingCart className="h-5 w-5" />
                       </button>
@@ -549,21 +549,21 @@ const Home = () => {
       </section>
 
       {/* Enhanced Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      <section className="py-6 md:py-12 lg:py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black text-white mb-6">
+        <div className="relative max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-white mb-4 md:mb-6">
               What Our{' '}
               <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
                 Customers Say
               </span>
             </h2>
-            <p className="text-xl text-blue-100">Real reviews from real customers</p>
+            <p className="text-base md:text-lg text-blue-100">Real reviews from real customers</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 name: 'Priya Sharma',
@@ -584,7 +584,7 @@ const Home = () => {
                 role: 'Loyal Customer',
                 content: 'I love the premium quality and competitive prices. ShopHub never disappoints!',
                 rating: 5,
-                avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face'
+                avatar: 'https://images.unsplash.com/photo-1438761681033-64674bd600d8?w=100&h=100&fit=crop&crop=face'
               }
             ].map((testimonial, index) => (
               <div 
@@ -598,7 +598,7 @@ const Home = () => {
                     ))}
                   </div>
                 </div>
-                <p className="text-blue-100 mb-8 italic text-lg leading-relaxed">"{testimonial.content}"</p>
+                <p className="text-blue-100 mb-6 italic text-base md:text-lg leading-relaxed">"{testimonial.content}"</p>
                 <div className="flex items-center">
                   <img
                     src={testimonial.avatar}
