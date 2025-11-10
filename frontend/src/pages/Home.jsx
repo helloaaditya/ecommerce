@@ -256,7 +256,7 @@ const Home = () => {
                   Welcome to{' '}
                 </span>
                 <span className="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-400 bg-clip-text text-transparent animate-pulse">
-                  ShopHub
+                  Gogadgets
                 </span>
               </h1>
 
@@ -341,7 +341,7 @@ const Home = () => {
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-3 md:mb-6">
               Why Choose{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                ShopHub?
+                Gogadgets?
               </span>
             </h2>
             <p className="text-sm md:text-xl text-slate-600 max-w-3xl mx-auto mb-4 md:mb-0">
@@ -584,7 +584,7 @@ const Home = () => {
               {
                 name: 'Priya Sharma',
                 role: 'Verified Buyer',
-                content: 'Amazing quality products and fast delivery. ShopHub has become my go-to shopping destination!',
+                content: 'Amazing quality products and fast delivery. Gogadgets has become my go-to shopping destination!',
                 rating: 5,
                 avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face'
               },
@@ -598,7 +598,7 @@ const Home = () => {
               {
                 name: 'Anjali Patel',
                 role: 'Loyal Customer',
-                content: 'I love the premium quality and competitive prices. ShopHub never disappoints!',
+                content: 'I love the premium quality and competitive prices. Gogadgets never disappoints!',
                 rating: 5,
                 avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face'
               }

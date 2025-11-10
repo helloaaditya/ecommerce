@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const cron = require('node-cron');
 
 // Load environment variables
 dotenv.config();
@@ -12,6 +13,9 @@ const app = express();
 const authRoutes = require('./routes/auth');
 const productsRoutes = require('./routes/products');
 const ordersRoutes = require('./routes/orders');
+
+// Import services
+const { processScheduledInstallments, sendPaymentReminders } = require('./services/recurringPayments');
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -30,6 +34,23 @@ const connectDB = async () => {
 
 // Connect to database
 connectDB();
+
+// Setup Cron Jobs for Installment Payments
+// Run every day at 2 AM to process scheduled installments
+cron.schedule('0 2 * * *', async () => {
+  console.log('⏰ Running scheduled installment payments cron job...');
+  await processScheduledInstallments();
+});
+
+// Run every day at 9 AM to send payment reminders (3 days before due date)
+cron.schedule('0 9 * * *', async () => {
+  console.log('⏰ Running payment reminder cron job...');
+  await sendPaymentReminders();
+});
+
+console.log('⏰ Cron jobs scheduled:');
+console.log('  - Installment processing: Daily at 2:00 AM');
+console.log('  - Payment reminders: Daily at 9:00 AM');
 
 // CORS configuration
 app.use(cors({

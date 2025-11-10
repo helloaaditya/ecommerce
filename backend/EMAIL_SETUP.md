@@ -14,7 +14,7 @@ This guide will help you configure email functionality for the password reset fe
 2. Navigate to Security
 3. Under "2-Step Verification", click "App passwords"
 4. Select "Mail" and "Other (Custom name)"
-5. Enter "ShopHub" as the name
+5. Enter "Gogadgets" as the name
 6. Copy the generated 16-character password
 
 ### Step 3: Configure Environment Variables

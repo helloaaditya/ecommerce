@@ -1,0 +1,33 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Circle background -->
+  <circle cx="32" cy="32" r="30" fill="url(#logoGradient)" />
+  
+  <!-- Two overlapping G's -->
+  <text 
+    x="18" 
+    y="44" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="32" 
+    font-weight="bold" 
+    fill="white"
+    opacity="0.85"
+  >G</text>
+  
+  <text 
+    x="29" 
+    y="44" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="32" 
+    font-weight="bold" 
+    fill="white"
+  >G</text>
+</svg>
+

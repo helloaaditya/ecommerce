@@ -30,11 +30,11 @@ const sendPasswordResetEmail = async (email, resetUrl, userName) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Password Reset Request - ShopHub',
+      subject: 'Password Reset Request - Gogadgets',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-            <h1 style="color: white; margin: 0; font-size: 28px;">ShopHub</h1>
+            <h1 style="color: white; margin: 0; font-size: 28px;">Gogadgets</h1>
             <p style="color: white; margin: 10px 0 0 0; opacity: 0.9;">Password Reset Request</p>
           </div>
           
@@ -42,7 +42,7 @@ const sendPasswordResetEmail = async (email, resetUrl, userName) => {
             <h2 style="color: #333; margin-bottom: 20px;">Hello ${userName},</h2>
             
             <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
-              We received a request to reset your password for your ShopHub account. 
+              We received a request to reset your password for your Gogadgets account. 
               If you didn't make this request, you can safely ignore this email.
             </p>
             
@@ -85,7 +85,7 @@ const sendPasswordResetEmail = async (email, resetUrl, userName) => {
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #999; font-size: 12px;">
-            <p>© 2024 ShopHub. All rights reserved.</p>
+            <p>© 2024 Gogadgets. All rights reserved.</p>
             <p>Shadara, Delhi, 110095, India</p>
           </div>
         </div>
@@ -114,11 +114,11 @@ const sendWelcomeEmail = async (email, userName) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Welcome to ShopHub!',
+      subject: 'Welcome to Gogadgets!',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-            <h1 style="color: white; margin: 0; font-size: 28px;">Welcome to ShopHub!</h1>
+            <h1 style="color: white; margin: 0; font-size: 28px;">Welcome to Gogadgets!</h1>
             <p style="color: white; margin: 10px 0 0 0; opacity: 0.9;">Your account has been created successfully</p>
           </div>
           
@@ -126,7 +126,7 @@ const sendWelcomeEmail = async (email, userName) => {
             <h2 style="color: #333; margin-bottom: 20px;">Hello ${userName},</h2>
             
             <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">
-              Welcome to ShopHub! We're excited to have you as part of our community. 
+              Welcome to Gogadgets! We're excited to have you as part of our community. 
               Your account has been created successfully and you can now start shopping.
             </p>
             
@@ -169,7 +169,7 @@ const sendWelcomeEmail = async (email, userName) => {
           </div>
           
           <div style="text-align: center; margin-top: 20px; color: #999; font-size: 12px;">
-            <p>© 2024 ShopHub. All rights reserved.</p>
+            <p>© 2024 Gogadgets. All rights reserved.</p>
             <p>Shadara, Delhi, 110095, India</p>
           </div>
         </div>

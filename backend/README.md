@@ -1,6 +1,6 @@
 # E-commerce Backend
 
-A Node.js/Express backend for the ShopHub e-commerce platform.
+A Node.js/Express backend for the Gogadgets e-commerce platform.
 
 # 🚀 Render Deployment Instructions
 
@@ -107,7 +107,7 @@ The system includes:
 - Welcome email for new registrations
 - Password reset email with secure link
 
-Both emails are professionally designed with ShopHub branding.
+Both emails are professionally designed with Gogadgets branding.
 
 ## Project Structure
 

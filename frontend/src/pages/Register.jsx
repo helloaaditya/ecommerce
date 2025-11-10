@@ -52,7 +52,7 @@ const Register = () => {
           {/* Header Section */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Join ShopHub
+              Join Gogadgets
             </h1>
             <p className="text-gray-600 text-lg">Create your account and start shopping</p>
           </div>

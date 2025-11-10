@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
                 Introduction
               </h2>
               <p className="text-gray-700 leading-relaxed">
-                At ShopHub, we are committed to protecting your privacy and ensuring the security of your personal information. 
+                At Gogadgets, we are committed to protecting your privacy and ensuring the security of your personal information. 
                 This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website 
                 or use our services. By using our services, you consent to the data practices described in this policy.
               </p>

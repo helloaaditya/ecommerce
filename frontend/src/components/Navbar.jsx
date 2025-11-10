@@ -58,8 +58,8 @@ const Navbar = () => {
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <span>📞 +91 8797223004</span>
-              <span>✉️ support@shophub.com</span>
+              <span>📞 +91 1234569870</span>
+              <span>✉️ support@gogadgets.live</span>
             </div>
           </div>
         </div>
@@ -71,16 +71,51 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center cursor-pointer group">
-              <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-2 rounded-xl mr-3 group-hover:scale-105 transition-transform duration-200">
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600 font-bold text-lg">S</span>
-                </div>
+              {/* Gogadgets Logo - Two overlapping G's */}
+              <div className="relative mr-3 group-hover:scale-105 transition-transform duration-200">
+                <svg width="48" height="48" viewBox="0 0 48 48" className="drop-shadow-lg">
+                  {/* Background circle */}
+                  <circle cx="24" cy="24" r="23" fill="url(#logo-gradient)" />
+                  
+                  {/* First G (left) */}
+                  <text 
+                    x="14" 
+                    y="32" 
+                    fontFamily="Arial, sans-serif" 
+                    fontSize="24" 
+                    fontWeight="bold" 
+                    fill="white"
+                    opacity="0.9"
+                  >
+                    G
+                  </text>
+                  
+                  {/* Second G (right, overlapping) */}
+                  <text 
+                    x="22" 
+                    y="32" 
+                    fontFamily="Arial, sans-serif" 
+                    fontSize="24" 
+                    fontWeight="bold" 
+                    fill="white"
+                  >
+                    G
+                  </text>
+                  
+                  {/* Gradient definition */}
+                  <defs>
+                    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#3b82f6" />
+                      <stop offset="100%" stopColor="#8b5cf6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
               </div>
               <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  ShopHub
+                  Gogadgets
                 </h1>
-                <p className="text-xs text-slate-400 -mt-1">Premium Shopping</p>
+                <p className="text-xs text-slate-400 -mt-1">Tech & Gadgets Store</p>
               </div>
             </Link>
           </div>

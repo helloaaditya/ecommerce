@@ -41,7 +41,7 @@ const Login = () => {
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
               Welcome Back
             </h1>
-            <p className="text-gray-600 text-lg">Sign in to your ShopHub account</p>
+            <p className="text-gray-600 text-lg">Sign in to your Gogadgets account</p>
           </div>
 
           {/* Login Form */}

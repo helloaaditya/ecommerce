@@ -117,21 +117,49 @@ const Footer = () => {
             {/* Company Info */}
             <div className="lg:col-span-2">
               <div className="flex items-center mb-6">
-                <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-2 rounded-xl mr-3">
-                  <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                    <span className="text-blue-600 font-bold text-lg">S</span>
-                  </div>
+                {/* Gogadgets Logo */}
+                <div className="relative mr-3">
+                  <svg width="40" height="40" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="23" fill="url(#footer-logo-gradient)" />
+                    <text 
+                      x="14" 
+                      y="32" 
+                      fontFamily="Arial, sans-serif" 
+                      fontSize="24" 
+                      fontWeight="bold" 
+                      fill="white"
+                      opacity="0.9"
+                    >
+                      G
+                    </text>
+                    <text 
+                      x="22" 
+                      y="32" 
+                      fontFamily="Arial, sans-serif" 
+                      fontSize="24" 
+                      fontWeight="bold" 
+                      fill="white"
+                    >
+                      G
+                    </text>
+                    <defs>
+                      <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#8b5cf6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                    ShopHub
+                    Gogadgets
                   </h2>
-                  <p className="text-xs text-slate-400">Premium Shopping Experience</p>
+                  <p className="text-xs text-slate-400">Tech & Gadgets Store</p>
                 </div>
               </div>
               
               <p className="text-slate-300 mb-6 leading-relaxed">
-                Your premier destination for quality products and exceptional service. We bring you the latest trends and timeless classics, all in one place.
+                Your premier destination for the latest tech gadgets and innovative electronics. Discover cutting-edge products that enhance your digital lifestyle.
               </p>
               
               <div className="space-y-3">
@@ -141,11 +169,11 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center space-x-3 text-slate-300">
                   <Phone className="h-5 w-5 text-green-400" />
-                  <span>+91 8797223004</span>
+                  <span>+91 1234567890</span>
                 </div>
                 <div className="flex items-center space-x-3 text-slate-300">
                   <Mail className="h-5 w-5 text-purple-400" />
-                  <span>support@shophub.com</span>
+                  <span>support@gogadgets.live</span>
                 </div>
               </div>
             </div>
@@ -225,7 +253,7 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center space-x-6 mb-4 md:mb-0">
                 <span className="text-slate-400 text-sm">
-                  © 2024 ShopHub. All rights reserved.
+                  © 2024 Gogadgets. All rights reserved.
                 </span>
               </div>
               

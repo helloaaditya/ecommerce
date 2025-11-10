@@ -45,7 +45,7 @@ const orderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
+    enum: ['pending', 'payment_in_progress', 'payment_complete', 'processing', 'shipped', 'delivered', 'cancelled'],
     default: 'pending'
   },
   trackingNumber: {
@@ -57,14 +57,72 @@ const orderSchema = new mongoose.Schema({
   },
   paymentStatus: {
     type: String,
-    enum: ['pending', 'paid', 'failed'],
+    enum: ['pending', 'partial', 'paid', 'failed'],
     default: 'pending'
-  }
+  },
+  phone: {
+    type: String
+  },
+  // ACH Payment Details
+  achDetails: {
+    accountHolderName: String,
+    accountType: {
+      type: String,
+      enum: ['checking', 'savings']
+    },
+    accountNumberLast4: String,
+    routingNumber: String,
+    mandateDate: Date,
+    mandateAccepted: Boolean,
+    stripeCustomerId: String,
+    stripeBankAccountId: String
+  },
+  // Installment Payment Plan
+  paymentPlan: {
+    type: {
+      type: String,
+      enum: ['full', 'installment'],
+      default: 'full'
+    },
+    installmentCount: {
+      type: Number,
+      default: 1
+    },
+    installmentAmount: Number,
+    installmentFrequency: {
+      type: String,
+      enum: ['weekly', 'biweekly', 'monthly'],
+      default: 'monthly'
+    },
+    installmentsPaid: {
+      type: Number,
+      default: 0
+    },
+    nextInstallmentDate: Date,
+    installmentHistory: [{
+      installmentNumber: Number,
+      amount: Number,
+      paidDate: Date,
+      paymentId: String,
+      status: {
+        type: String,
+        enum: ['pending', 'paid', 'failed'],
+        default: 'pending'
+      },
+      failureReason: String
+    }]
+  },
+  // Shipping will only be allowed when this is true
+  readyToShip: {
+    type: Boolean,
+    default: false
+  },
+  shippedDate: Date
 }, {
   timestamps: true
 });
 
-// Generate order number before saving
+// Generate order number and handle payment status before saving
 orderSchema.pre('save', async function(next) {
   if (this.isNew) {
     const date = new Date();
@@ -82,6 +140,25 @@ orderSchema.pre('save', async function(next) {
     
     this.orderNumber = `ORD-${year}${month}${day}-${String(orderCount + 1).padStart(3, '0')}`;
   }
+  
+  // Auto-update readyToShip based on payment plan
+  if (this.paymentPlan && this.paymentPlan.type === 'installment') {
+    if (this.paymentPlan.installmentsPaid >= this.paymentPlan.installmentCount) {
+      this.readyToShip = true;
+      this.paymentStatus = 'paid';
+      this.status = 'payment_complete';
+    } else if (this.paymentPlan.installmentsPaid > 0) {
+      this.paymentStatus = 'partial';
+      this.status = 'payment_in_progress';
+      this.readyToShip = false;
+    }
+  } else {
+    // Full payment
+    if (this.paymentStatus === 'paid') {
+      this.readyToShip = true;
+    }
+  }
+  
   next();
 });
 

@@ -36,7 +36,7 @@ const Terms = () => {
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Acceptance of Terms</h2>
               <p className="text-gray-700 leading-relaxed">
-                By accessing and using ShopHub's website and services, you accept and agree to be bound by the terms and provision of this agreement. 
+                By accessing and using Gogadgets's website and services, you accept and agree to be bound by the terms and provision of this agreement. 
                 If you do not agree to abide by the above, please do not use this service.
               </p>
             </div>
@@ -44,7 +44,7 @@ const Terms = () => {
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Description of Service</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                ShopHub provides an online e-commerce platform that allows users to:
+                Gogadgets provides an online e-commerce platform that allows users to:
               </p>
               <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4">
                 <li>Browse and purchase products from our catalog</li>
@@ -182,7 +182,7 @@ const Terms = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Intellectual Property</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 All content on this website, including but not limited to text, graphics, logos, images, and software, 
-                is the property of ShopHub and is protected by copyright and other intellectual property laws.
+                is the property of Gogadgets and is protected by copyright and other intellectual property laws.
               </p>
               <div className="bg-yellow-50 rounded-xl p-4">
                 <p className="text-gray-700 text-sm">
@@ -213,7 +213,7 @@ const Terms = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">11. Limitation of Liability</h2>
               <div className="bg-gray-50 rounded-xl p-6">
                 <p className="text-gray-700 mb-4">
-                  To the maximum extent permitted by law, ShopHub shall not be liable for any indirect, incidental, 
+                  To the maximum extent permitted by law, Gogadgets shall not be liable for any indirect, incidental, 
                   special, consequential, or punitive damages, including but not limited to:
                 </p>
                 <ul className="text-gray-700 space-y-2 text-sm">
